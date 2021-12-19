@@ -1,0 +1,11 @@
+.main {
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1024px;
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0 0 20px;
+}
