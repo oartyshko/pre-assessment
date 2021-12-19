@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { nxtPrmFib } from './number-search.utils';
+import { findNextPrimeFibonacci } from './number-search.utils';
 
 @Component({
   selector: 'app-number-search',
@@ -15,7 +15,7 @@ export class NumberSearchComponent {
 
   onSubmit() {
     if (this.searchForm.valid) {
-      this.nextPrimeFibonacciNumber = nxtPrmFib(this.userNumber);
+      this.nextPrimeFibonacciNumber = findNextPrimeFibonacci(this.userNumber);
     }
   }
 

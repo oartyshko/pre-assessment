@@ -1,49 +1,56 @@
-/*
-* TODO:
-*   - use more meaningful variables and functions names to improve code readability (for instance isPrimeNumber instead of ispnum)
-*   - decrease time consuming:
-*       a) the prime number check can take O(sqrt(N)) iterations
-*       b) finding the nth Fibonacci number can be done without recursion which has higher time (O(2^N)) and space (O(N)) complexity
-*   - improve nested if-else statements:
-*       if (fib > number && ispnum(fib)) {
-*         r = fib;
-          break;
-*       }
-*       l = l + 1;
-*   - try to find the nearest Fibonacci number which is greater than the input number before looping.
-*     The next Fibonacci number can be found by multiplying the current Fibonacci number and the ratio ((1 + sqrt(5)) / 2)
-* */
-const ispnum = function(num: number): boolean {
-  for(let i = 2; i < num; i++)
-    if  (num % i === 0) return false;
-  return num > 1;
-};
-
-const fibonacci = (num: number): number => {
-  if (num <= 1) return 1;
-  return fibonacci(num - 1) + fibonacci(num - 2);
-};
-
-export function nxtPrmFib(number: number): number {
-  let r = 0;
-  let l = 1;
-  while (true) {
-    const fib = fibonacci(l);
-    console.log('fib', fib, number);
-    if (fib > number) {
-      if (ispnum(fib)) {
-        r = fib;
-        break;
-      } else {
-        l = l + 1;
-        console.warn('bumping to ', fib);
-      }
-    } else {
-      l = l + 1;
-      console.warn('bumping to', fib);
+/**
+ * Checks if an input number is prime
+ * @param input - an input number
+ * @return {boolean} - true in case of a prime number
+ * */
+function isPrimeNumber(input: number): boolean {
+  for (let i = 2; i * i <= input; i++) {
+    if (input % i === 0) {
+      return false;
     }
   }
-  console.warn('Next prime fib ', r);
 
-  return r;
+  return input > 1;
+}
+
+/**
+ * Finds the nearest Fibonacci number which is greater than the input number.
+ * @param input - an input number
+ * @return {number} - a Fibonacci number
+ * */
+function findNearestFibonacci(input: number): number {
+  let first = 1;
+  let second = 1;
+
+  while (second <= input) {
+    [first, second] = [second, first + second];
+  }
+
+  return second;
+}
+
+/**
+ * Gets the next Fibonacci number
+ * @param fibonacciNumber - current Fibonacci number
+ * @return {number} - next Fibonacci number
+ * */
+function getNextFibonacci(fibonacciNumber: number): number {
+  const next = fibonacciNumber * (1 + Math.sqrt(5)) / 2;
+
+  return Math.round(next);
+}
+
+/**
+ * Finds the next prime Fibonacci number
+ * @param input - an input number
+ * @return {number}
+ * */
+export function findNextPrimeFibonacci(input: number): number {
+  let nextFibonacci: number = findNearestFibonacci(input);
+
+  while (!isPrimeNumber(nextFibonacci)) {
+    nextFibonacci = getNextFibonacci(nextFibonacci);
+  }
+
+  return nextFibonacci;
 }
