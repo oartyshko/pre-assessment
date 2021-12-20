@@ -1,5 +1,5 @@
 /**
- * Checks if an input number is prime
+ * Checks if an input number is prime. If there is no any factor in the range [2, sqrt(input)], the input number is prime
  * @param input - an input number
  * @return {boolean} - true in case of a prime number
  * */
@@ -30,14 +30,15 @@ function findNearestFibonacci(input: number): number {
 }
 
 /**
- * Gets the next Fibonacci number
+ * Calculates the next Fibonacci number by multiplying
+ * the previous Fibonacci number by the Golden Ratio and then rounding
  * @param fibonacciNumber - current Fibonacci number
  * @return {number} - next Fibonacci number
  * */
 function getNextFibonacci(fibonacciNumber: number): number {
-  const next = fibonacciNumber * (1 + Math.sqrt(5)) / 2;
+  const goldenRatio = (1 + Math.sqrt(5)) / 2;
 
-  return Math.round(next);
+  return Math.round(fibonacciNumber * goldenRatio);
 }
 
 /**
